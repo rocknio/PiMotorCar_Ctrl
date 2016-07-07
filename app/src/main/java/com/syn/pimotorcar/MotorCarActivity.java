@@ -84,6 +84,17 @@ public class MotorCarActivity extends AppCompatActivity {
         refresh_settings();
     }
 
+    private void sendFollowCommand() {
+        if ( rb_forward.isChecked() ) {
+            Log.i("CMD", "forward");
+            sendCommand("forward");
+        }
+        else if ( rb_astern.isChecked()) {
+            Log.i("CMD", "astern");
+            sendCommand("astern");
+        }
+    }
+
     private void sendCommand(String cmd) {
         if ( ws_client == null )
         {
@@ -128,6 +139,7 @@ public class MotorCarActivity extends AppCompatActivity {
                 } else if (action == MotionEvent.ACTION_UP) { // 松开
                     Log.i("CMD", "stop_left");
                     sendCommand("stop_left");
+                    sendFollowCommand();
                 }
                 return false;
             }
@@ -144,6 +156,7 @@ public class MotorCarActivity extends AppCompatActivity {
                 } else if (action == MotionEvent.ACTION_UP) { // 松开
                     Log.i("CMD", "stop_right");
                     sendCommand("stop_right");
+                    sendFollowCommand();
                 }
                 return false;
             }
@@ -168,12 +181,7 @@ public class MotorCarActivity extends AppCompatActivity {
                                     }
                                 });
 
-                                if (rb_forward.isChecked()) {
-                                    sendCommand("forward");
-                                }
-                                else if (rb_astern.isChecked()) {
-                                    sendCommand("astern");
-                                }
+                                sendFollowCommand();
                             }
 
                             @Override
@@ -225,7 +233,7 @@ public class MotorCarActivity extends AppCompatActivity {
         btn_setting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // 打开盘库页面
+                // 打开设置activity
                 Intent settings_intent = new Intent(getApplicationContext(), SettingsActivity.class);
                 startActivity(settings_intent);
             }
