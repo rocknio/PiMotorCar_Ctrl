@@ -13,6 +13,7 @@ import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import org.apache.http.util.EncodingUtils;
+import org.java_websocket.WebSocket;
 import org.java_websocket.client.WebSocketClient;
 import org.java_websocket.handshake.ServerHandshake;
 import org.json.JSONException;
@@ -29,8 +30,15 @@ public class MotorCarActivity extends AppCompatActivity {
     private JSONObject settings = new JSONObject();
     private RadioButton rb_forward;
     private RadioButton rb_astern;
+    private ToggleButton btn_start_stop;
 
-    //读数据
+    @Override
+    protected void onResume() {
+        super.onResume();
+        refresh_settings();
+    }
+
+        //读数据
     public String readFile(String fileName) throws IOException {
         String res = "";
         try
@@ -52,14 +60,7 @@ public class MotorCarActivity extends AppCompatActivity {
         return res;
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_motor_car);
-
-        // 初始化界面元素
-        InitView();
-
+    private void refresh_settings() {
         // 载入配置参数
         try {
             String str_settings = readFile(settings_filename);
@@ -70,6 +71,17 @@ public class MotorCarActivity extends AppCompatActivity {
         } catch (JSONException | IOException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_motor_car);
+
+        // 初始化界面元素
+        InitView();
+
+        refresh_settings();
     }
 
     private void sendCommand(String cmd) {
@@ -133,7 +145,7 @@ public class MotorCarActivity extends AppCompatActivity {
         });
 
         // 启动、停止
-        final ToggleButton btn_start_stop = (ToggleButton) findViewById(R.id.toggleButton);
+        btn_start_stop = (ToggleButton) findViewById(R.id.toggleButton);
         btn_start_stop.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
@@ -195,7 +207,7 @@ public class MotorCarActivity extends AppCompatActivity {
                     }
                 }
                 else {
-                    if (ws_client != null ) {
+                    if (ws_client.getReadyState() == WebSocket.READYSTATE.OPEN ) {
                         sendCommand("stop_all");
                         ws_client.close();
                     }
