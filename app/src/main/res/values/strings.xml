@@ -2,8 +2,8 @@
     <string name="app_name">PiMotorCar</string>
     <string name="str_forward">前进              </string>
     <string name="str_astern">倒车              </string>
-    <string name="str_ternleft">左转弯</string>
-    <string name="str_ternright">右转弯</string>
+    <string name="str_turnleft">左转弯</string>
+    <string name="str_turnright">右转弯</string>
     <string name="str_stop">停车</string>
     <string name="str_start">启动</string>
     <string name="str_settings">设置</string>

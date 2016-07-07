@@ -60,13 +60,14 @@ public class SettingsActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 try {
-                    String str_host = "ws://" + settings.getString("host_ip") + ":" + settings.getString("host_port");
+                    String str_host = "ws://" + host_ip.getText().toString() + ":" + host_port.getText().toString() + "/ws";
                     ws_client = new WebSocketClient(new URI(str_host)) {
                         @Override
                         public void onOpen(ServerHandshake handshakedata) {
                             runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
+                                    Log.i("WebSocket", "connected!");
                                     Toast.makeText(getApplicationContext(), "连接成功!", Toast.LENGTH_SHORT).show();
                                     ws_client.close();
                                 }
@@ -75,12 +76,13 @@ public class SettingsActivity extends AppCompatActivity {
 
                         @Override
                         public void onMessage(String message) {
-
+                            Log.i("WebSocket", "Recv = " + message);
                         }
 
                         @Override
                         public void onClose(int code, String reason, boolean remote) {
-
+                            Log.i("WebSocket", "disconnected!");
+                            ws_client.close();
                         }
 
                         @Override
@@ -93,7 +95,9 @@ public class SettingsActivity extends AppCompatActivity {
                             });
                         }
                     };
-                } catch (JSONException | URISyntaxException e) {
+
+                    ws_client.connect();
+                } catch (URISyntaxException e) {
                     e.printStackTrace();
                 }
             }
@@ -120,6 +124,7 @@ public class SettingsActivity extends AppCompatActivity {
                     Log.e("CONFIG", str_settings);
                     writeFile(settings_filename, str_settings);
                     Toast.makeText(getApplicationContext(), "配置保存成功!", Toast.LENGTH_SHORT).show();
+                    finish();
                 } catch (JSONException | IOException e) {
                     e.printStackTrace();
                 }

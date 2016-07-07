@@ -77,7 +77,7 @@
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="New Button"
+                android:text="@string/str_turnleft"
                 android:id="@+id/btn_turnleft"
                 android:layout_weight="1" />
 
@@ -86,12 +86,14 @@
                 android:layout_height="wrap_content"
                 android:text="@string/str_start"
                 android:id="@+id/toggleButton"
+                android:textOn="@string/str_start"
+                android:textOff="@string/str_stop"
                 android:layout_weight="1" />
 
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="New Button"
+                android:text="@string/str_turnright"
                 android:id="@+id/btn_turnright"
                 android:layout_weight="1
                 " />

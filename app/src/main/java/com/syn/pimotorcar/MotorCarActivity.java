@@ -66,6 +66,7 @@ public class MotorCarActivity extends AppCompatActivity {
             JSONObject tmp_setting = new JSONObject(str_settings);
             settings.put("host_ip", tmp_setting.getString("host_ip"));
             settings.put("host_port", tmp_setting.getString("host_port"));
+            Log.i("Config", str_settings);
         } catch (JSONException | IOException e) {
             e.printStackTrace();
         }
@@ -81,7 +82,22 @@ public class MotorCarActivity extends AppCompatActivity {
     private void InitView()
     {
         rb_forward = (RadioButton) findViewById(R.id.rb_forward);
+        rb_forward.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.i("CMD", "forward");
+                sendCommand("forward");
+            }
+        });
+
         rb_astern = (RadioButton) findViewById(R.id.rb_astern);
+        rb_astern.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.i("CMD", "astern");
+                sendCommand("astern");
+            }
+        });
 
         // 左转弯
         Button btn_turn_left = (Button) findViewById(R.id.btn_turnleft);
@@ -90,8 +106,10 @@ public class MotorCarActivity extends AppCompatActivity {
                 // TODO Auto-generated method stub
                 int action = event.getAction();
                 if (action == MotionEvent.ACTION_DOWN) { // 按下
+                    Log.i("CMD", "turn_left");
                     sendCommand("turn_left");
                 } else if (action == MotionEvent.ACTION_UP) { // 松开
+                    Log.i("CMD", "stop_left");
                     sendCommand("stop_left");
                 }
                 return false;
@@ -104,8 +122,10 @@ public class MotorCarActivity extends AppCompatActivity {
             public boolean onTouch(View arg0, MotionEvent event) {
                 int action = event.getAction();
                 if (action == MotionEvent.ACTION_DOWN) { // 按下
+                    Log.i("CMD", "turn_right");
                     sendCommand("turn_right");
                 } else if (action == MotionEvent.ACTION_UP) { // 松开
+                    Log.i("CMD", "stop_right");
                     sendCommand("stop_right");
                 }
                 return false;
@@ -119,15 +139,15 @@ public class MotorCarActivity extends AppCompatActivity {
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 if ( b ){
                     try {
-                        String str_host = "ws://" + settings.getString("host_ip") + ":" + settings.getString("host_port");
+                        String str_host = "ws://" + settings.getString("host_ip") + ":" + settings.getString("host_port") + "/ws";
                         ws_client = new WebSocketClient(new URI(str_host)) {
                             @Override
                             public void onOpen(ServerHandshake handshakedata) {
                                 runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
+                                        Log.i("WebSocket", "connected!");
                                         Toast.makeText(getApplicationContext(), "连接成功!", Toast.LENGTH_SHORT).show();
-                                        ws_client.close();
                                     }
                                 });
 
@@ -140,13 +160,21 @@ public class MotorCarActivity extends AppCompatActivity {
                             }
 
                             @Override
-                            public void onMessage(String message) {
-
+                            public void onMessage(final String message) {
+                                Log.i("WebSocket", "Recv = " + message);
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        String msg = "Recv = " + message;
+                                        Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
+                                    }
+                                });
                             }
 
                             @Override
                             public void onClose(int code, String reason, boolean remote) {
-
+                                Log.i("WebSocket", "disconnected!");
+                                ws_client.close();
                             }
 
                             @Override
@@ -160,6 +188,8 @@ public class MotorCarActivity extends AppCompatActivity {
                                 });
                             }
                         };
+
+                        ws_client.connect();
                     } catch (JSONException | URISyntaxException e) {
                         e.printStackTrace();
                     }
