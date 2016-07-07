@@ -91,7 +91,7 @@ public class MotorCarActivity extends AppCompatActivity {
         }
 
         if ( ws_client.getReadyState() == WebSocket.READYSTATE.OPEN ) {
-            Log.e("CMD", "send websocket command:" + cmd);
+            Log.i("CMD", "send websocket command:" + cmd);
             ws_client.send(cmd);
         }
     }
