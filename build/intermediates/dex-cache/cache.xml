@@ -2,60 +2,11 @@
 <items version="2" >
 
     <item
-        jar="D:\WORK\PiMotorCar\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\24.0.0\jars\classes.jar"
-        jumboMode="false"
+        jar="D:\WORK\PiMotorCar\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
+        jumboMode="true"
         revision="23.0.1"
-        sha1="0874286cc2fd88d54fdf130e9d5372730da6de97">
-        <dex dex="D:\WORK\PiMotorCar\app\build\intermediates\pre-dexed\debug\com.android.support-appcompat-v7-24.0.0_0843417a93e2ebab9b91a7d489ba17ae332324fb.jar" />
-    </item>
-    <item
-        jar="C:\Users\Administrator\.gradle\caches\modules-2\files-2.1\org.apache.httpcomponents\httpcore\4.4.4\b31526a230871fbe285fbcbe2813f9c0839ae9b0\httpcore-4.4.4.jar"
-        jumboMode="false"
-        revision="23.0.1"
-        sha1="b31526a230871fbe285fbcbe2813f9c0839ae9b0">
-        <dex dex="D:\WORK\PiMotorCar\app\build\intermediates\pre-dexed\debug\httpcore-4.4.4_14668337535c4d928e47e8e740e6c7ac3ad172ca.jar" />
-    </item>
-    <item
-        jar="D:\WORK\PiMotorCar\app\build\intermediates\exploded-aar\com.android.support\support-v4\24.0.0\jars\classes.jar"
-        jumboMode="false"
-        revision="23.0.1"
-        sha1="2f7e6e2dad1bccaf68a8820820adc6c0d5b96d37">
-        <dex dex="D:\WORK\PiMotorCar\app\build\intermediates\pre-dexed\debug\com.android.support-support-v4-24.0.0_27defd38ebcbbefc76f2ec336c13bca9d52a7897.jar" />
-    </item>
-    <item
-        jar="D:\WORK\PiMotorCar\app\build\intermediates\exploded-aar\com.android.support\support-v4\24.0.0\jars\libs\internal_impl-24.0.0.jar"
-        jumboMode="false"
-        revision="23.0.1"
-        sha1="fcaf463e10e69c1923ccf1edeba3b4196d239e00">
-        <dex dex="D:\WORK\PiMotorCar\app\build\intermediates\pre-dexed\debug\internal_impl-24.0.0_92456437e234a9df8959763aae1667097db73f9c.jar" />
-    </item>
-    <item
-        jar="C:\Users\Administrator\.gradle\caches\modules-2\files-2.1\com.android.support\support-annotations\24.0.0\2943c74db6d4346ab8c6531adac91fa05c137c40\support-annotations-24.0.0.jar"
-        jumboMode="false"
-        revision="23.0.1"
-        sha1="2943c74db6d4346ab8c6531adac91fa05c137c40">
-        <dex dex="D:\WORK\PiMotorCar\app\build\intermediates\pre-dexed\debug\support-annotations-24.0.0_170a33ba025e7388493b8e76c041cf4d64a29a8a.jar" />
-    </item>
-    <item
-        jar="C:\Users\Administrator\.gradle\caches\modules-2\files-2.1\org.java-websocket\Java-WebSocket\1.3.0\db2658f013fb163de4a99274c2eb9e17efe535d2\Java-WebSocket-1.3.0.jar"
-        jumboMode="false"
-        revision="23.0.1"
-        sha1="db2658f013fb163de4a99274c2eb9e17efe535d2">
-        <dex dex="D:\WORK\PiMotorCar\app\build\intermediates\pre-dexed\debug\Java-WebSocket-1.3.0_7f2cc9cce1eeffcc08c3f6c3401a7ca7ec0c5da1.jar" />
-    </item>
-    <item
-        jar="D:\WORK\PiMotorCar\app\build\intermediates\exploded-aar\com.android.support\animated-vector-drawable\24.0.0\jars\classes.jar"
-        jumboMode="false"
-        revision="23.0.1"
-        sha1="e70f608219ed6b974644c333249ab2bb7b71de98">
-        <dex dex="D:\WORK\PiMotorCar\app\build\intermediates\pre-dexed\debug\com.android.support-animated-vector-drawable-24.0.0_719f9eff67c45578ca787d07c9d6d32d48182b04.jar" />
-    </item>
-    <item
-        jar="D:\WORK\PiMotorCar\app\build\intermediates\exploded-aar\com.android.support\support-vector-drawable\24.0.0\jars\classes.jar"
-        jumboMode="false"
-        revision="23.0.1"
-        sha1="3bd97cfefd783e9de1dd1c30574a6adb44b4409b">
-        <dex dex="D:\WORK\PiMotorCar\app\build\intermediates\pre-dexed\debug\com.android.support-support-vector-drawable-24.0.0_d4a8badc5a44ef6a575a25f6eefdc6bdad613ae6.jar" />
+        sha1="a46c9b6591e03c584f58f3aaf4f2e2976ea5c21e">
+        <dex dex="D:\WORK\PiMotorCar\app\build\intermediates\pre-dexed\debug\instant-run-bootstrap_2bad9d9c7da35c66c592b07527ca105c1d570d9f.jar" />
     </item>
 
 </items>

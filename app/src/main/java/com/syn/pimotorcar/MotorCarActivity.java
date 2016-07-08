@@ -24,6 +24,11 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 
+import io.vov.vitamio.LibsChecker;
+import io.vov.vitamio.MediaPlayer;
+import io.vov.vitamio.widget.MediaController;
+import io.vov.vitamio.widget.VideoView;
+
 public class MotorCarActivity extends AppCompatActivity {
     final private static String settings_filename = "pimotorcar.cfg";
     private WebSocketClient ws_client;
@@ -76,6 +81,10 @@ public class MotorCarActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        if (!LibsChecker.checkVitamioLibs(this))
+            return;
+
         setContentView(R.layout.activity_motor_car);
 
         // 初始化界面元素
@@ -107,8 +116,26 @@ public class MotorCarActivity extends AppCompatActivity {
         }
     }
 
+    private void InitWebView() {
+        VideoView camera_video = (VideoView) findViewById(R.id.wv_camera);
+
+        String path = "rtsp://wowzaec2demo.streamlock.net/vod/mp4:BigBuckBunny_115k.mov";
+        camera_video.setVideoPath(path);
+        camera_video.setMediaController(new MediaController(this));
+        camera_video.requestFocus();
+
+        camera_video.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+            @Override
+            public void onPrepared(MediaPlayer mp) {
+                mp.setPlaybackSpeed(1.0f);
+            }
+        });
+    }
+
     private void InitView()
     {
+        InitWebView();
+
         rb_forward = (RadioButton) findViewById(R.id.rb_forward);
         rb_forward.setOnClickListener(new View.OnClickListener() {
             @Override
