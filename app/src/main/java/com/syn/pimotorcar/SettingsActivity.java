@@ -25,6 +25,7 @@ public class SettingsActivity extends AppCompatActivity {
     private JSONObject settings = new JSONObject();
     private EditText host_ip;
     private EditText host_port;
+    private EditText camera_uri;
     private WebSocketClient ws_client;
 
     @Override
@@ -41,10 +42,11 @@ public class SettingsActivity extends AppCompatActivity {
             JSONObject tmp_setting = new JSONObject(str_settings);
             settings.put("host_ip", tmp_setting.getString("host_ip"));
             settings.put("host_port", tmp_setting.getString("host_port"));
+            settings.put("camera_uri", tmp_setting.getString("camera_uri"));
 
             host_ip.setText(settings.getString("host_ip"));
             host_port.setText(settings.getString("host_port"));
-
+            camera_uri.setText(settings.getString("camera_uri"));
         } catch (JSONException | IOException e) {
             e.printStackTrace();
         }
@@ -54,6 +56,7 @@ public class SettingsActivity extends AppCompatActivity {
     private void InitView() {
         host_ip = (EditText) findViewById(R.id.edit_ipaddress);
         host_port = (EditText) findViewById(R.id.edit_port);
+        camera_uri = (EditText) findViewById(R.id.edit_camera_str);
 
         Button btn_test_connection = (Button) findViewById(R.id.btn_connect);
         btn_test_connection.setOnClickListener(new View.OnClickListener() {
@@ -109,6 +112,7 @@ public class SettingsActivity extends AppCompatActivity {
             public void onClick(View view) {
                 String str_host_ip = host_ip.getText().toString();
                 String str_host_port = host_port.getText().toString();
+                String str_camera_uri = camera_uri.getText().toString();
 
                 if ( str_host_ip.equals("") || str_host_port.equals("") ) {
                     Toast.makeText(getApplicationContext(), "请配置服务端IP，端口!", Toast.LENGTH_SHORT).show();
@@ -119,6 +123,7 @@ public class SettingsActivity extends AppCompatActivity {
                 try {
                     settings.put("host_ip", str_host_ip);
                     settings.put("host_port", str_host_port);
+                    settings.put("camera_uri", str_camera_uri);
 
                     String str_settings = settings.toString();
                     Log.e("CONFIG", str_settings);

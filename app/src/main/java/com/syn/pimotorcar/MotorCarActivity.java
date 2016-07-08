@@ -36,6 +36,7 @@ public class MotorCarActivity extends AppCompatActivity {
     private RadioButton rb_forward;
     private RadioButton rb_astern;
     private ToggleButton btn_start_stop;
+    private VideoView camera_video;
 
     @Override
     protected void onResume() {
@@ -72,6 +73,7 @@ public class MotorCarActivity extends AppCompatActivity {
             JSONObject tmp_setting = new JSONObject(str_settings);
             settings.put("host_ip", tmp_setting.getString("host_ip"));
             settings.put("host_port", tmp_setting.getString("host_port"));
+            settings.put("camera_uri", tmp_setting.getString("camera_uri"));
             Log.i("Config", str_settings);
         } catch (JSONException | IOException e) {
             e.printStackTrace();
@@ -116,25 +118,32 @@ public class MotorCarActivity extends AppCompatActivity {
         }
     }
 
-    private void InitWebView() {
-        VideoView camera_video = (VideoView) findViewById(R.id.wv_camera);
+    private void startGetCameraVideo() {
+        String path;
+        try {
+            path = settings.getString("camera_uri");
+        } catch (JSONException e) {
+            e.printStackTrace();
+            path = "";
+        }
 
-        String path = "http://112.253.22.157/17/z/z/y/u/zzyuasjwufnqerzvyxgkuigrkcatxr/hc.yinyuetai.com/D046015255134077DDB3ACA0D7E68D45.flv";
-        camera_video.setVideoPath(path);
-        camera_video.setMediaController(new MediaController(this));
-        camera_video.requestFocus();
+        if (path.equals("")) {
+            camera_video.setVideoPath(path);
+            camera_video.setMediaController(new MediaController(this));
+            camera_video.requestFocus();
 
-        camera_video.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-            @Override
-            public void onPrepared(MediaPlayer mp) {
-                mp.setPlaybackSpeed(1.0f);
-            }
-        });
+            camera_video.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+                @Override
+                public void onPrepared(MediaPlayer mp) {
+                    mp.setPlaybackSpeed(1.0f);
+                }
+            });
+        }
     }
 
     private void InitView()
     {
-        InitWebView();
+        camera_video = (VideoView) findViewById(R.id.wv_camera);
 
         rb_forward = (RadioButton) findViewById(R.id.rb_forward);
         rb_forward.setOnClickListener(new View.OnClickListener() {
@@ -196,6 +205,10 @@ public class MotorCarActivity extends AppCompatActivity {
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 if ( b ){
                     try {
+                        // 播放视频
+                        startGetCameraVideo();
+
+                        // 连接控制端
                         String str_host = "ws://" + settings.getString("host_ip") + ":" + settings.getString("host_port") + "/ws";
                         ws_client = new WebSocketClient(new URI(str_host)) {
                             @Override
@@ -247,6 +260,8 @@ public class MotorCarActivity extends AppCompatActivity {
                     }
                 }
                 else {
+                    camera_video.stopPlayback();
+
                     if (ws_client.getReadyState() == WebSocket.READYSTATE.OPEN ) {
                         sendCommand("stop_all");
                         ws_client.close();

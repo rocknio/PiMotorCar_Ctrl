@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:weightSum="3">
+    android:weightSum="4">
 
     <LinearLayout
         android:orientation="horizontal"
@@ -50,6 +50,36 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/str_port"
+                android:id="@+id/textView3"
+                android:layout_gravity="center_vertical" />
+        </LinearLayout>
+
+        <EditText
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:id="@+id/edit_port"
+            android:layout_weight="1"
+            android:layout_gravity="center_vertical"
+            android:text="@string/str_default_port"
+            android:inputType="number" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/str_camera_uri"
                 android:id="@+id/textView2"
                 android:layout_gravity="center_vertical" />
         </LinearLayout>
@@ -57,12 +87,12 @@
         <EditText
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:inputType="numberSigned"
+            android:inputType="textUri"
             android:ems="10"
-            android:id="@+id/edit_port"
+            android:id="@+id/edit_camera_str"
             android:layout_weight="1"
             android:layout_gravity="center_vertical"
-            android:text="@string/str_default_port" />
+            android:text="@string/str_default_camera_uri" />
     </LinearLayout>
 
     <LinearLayout

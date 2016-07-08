@@ -13,4 +13,6 @@
     <string name="str_default_port">9090</string>
     <string name="str_connect">测试连接</string>
     <string name="str_save">保存</string>
+    <string name="str_camera_uri">摄像头视频地址</string>
+    <string name="str_default_camera_uri">http://112.253.22.157/17/z/z/y/u/zzyuasjwufnqerzvyxgkuigrkcatxr/hc.yinyuetai.com/D046015255134077DDB3ACA0D7E68D45.flv</string>
 </resources>
