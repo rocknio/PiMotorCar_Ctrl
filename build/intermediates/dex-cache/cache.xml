@@ -1,12 +1,3 @@
 <?xml version="1.0" encoding="utf-8"?>
-<items version="2" >
+<items version="2" />
 
-    <item
-        jar="D:\WORK\PiMotorCar\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
-        jumboMode="true"
-        revision="23.0.1"
-        sha1="a46c9b6591e03c584f58f3aaf4f2e2976ea5c21e">
-        <dex dex="D:\WORK\PiMotorCar\app\build\intermediates\pre-dexed\debug\instant-run-bootstrap_2bad9d9c7da35c66c592b07527ca105c1d570d9f.jar" />
-    </item>
-
-</items>

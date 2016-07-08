@@ -119,7 +119,7 @@ public class MotorCarActivity extends AppCompatActivity {
     private void InitWebView() {
         VideoView camera_video = (VideoView) findViewById(R.id.wv_camera);
 
-        String path = "rtsp://wowzaec2demo.streamlock.net/vod/mp4:BigBuckBunny_115k.mov";
+        String path = "http://112.253.22.157/17/z/z/y/u/zzyuasjwufnqerzvyxgkuigrkcatxr/hc.yinyuetai.com/D046015255134077DDB3ACA0D7E68D45.flv";
         camera_video.setVideoPath(path);
         camera_video.setMediaController(new MediaController(this));
         camera_video.requestFocus();
