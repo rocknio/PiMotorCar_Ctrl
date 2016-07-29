@@ -127,7 +127,7 @@ public class MotorCarActivity extends AppCompatActivity {
             path = "";
         }
 
-        if (path.equals("")) {
+        if (!path.equals("")) {
             camera_video.setVideoPath(path);
             camera_video.setMediaController(new MediaController(this));
             camera_video.requestFocus();
