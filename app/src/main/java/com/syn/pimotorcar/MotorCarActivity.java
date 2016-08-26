@@ -38,13 +38,7 @@ public class MotorCarActivity extends AppCompatActivity {
     private ToggleButton btn_start_stop;
     private VideoView camera_video;
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        refresh_settings();
-    }
-
-        //读数据
+    //读数据
     public String readFile(String fileName) throws IOException {
         String res = "";
         try
@@ -132,10 +126,12 @@ public class MotorCarActivity extends AppCompatActivity {
             camera_video.setMediaController(new MediaController(this));
             camera_video.requestFocus();
 
+            // 设置播放速率，自动播放
             camera_video.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
                 @Override
                 public void onPrepared(MediaPlayer mp) {
                     mp.setPlaybackSpeed(1.0f);
+                    mp.start();
                 }
             });
         }
@@ -167,7 +163,6 @@ public class MotorCarActivity extends AppCompatActivity {
         Button btn_turn_left = (Button) findViewById(R.id.btn_turnleft);
         btn_turn_left.setOnTouchListener(new View.OnTouchListener() {
             public boolean onTouch(View arg0, MotionEvent event) {
-                // TODO Auto-generated method stub
                 int action = event.getAction();
                 if (action == MotionEvent.ACTION_DOWN) { // 按下
                     Log.i("CMD", "turn_left");
@@ -205,9 +200,6 @@ public class MotorCarActivity extends AppCompatActivity {
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 if ( b ){
                     try {
-                        // 播放视频
-                        startGetCameraVideo();
-
                         // 连接控制端
                         String str_host = "ws://" + settings.getString("host_ip") + ":" + settings.getString("host_port") + "/ws";
                         ws_client = new WebSocketClient(new URI(str_host)) {
@@ -222,6 +214,9 @@ public class MotorCarActivity extends AppCompatActivity {
                                 });
 
                                 sendFollowCommand();
+
+                                // 控制端链接成功，播放视频
+                                startGetCameraVideo();
                             }
 
                             @Override
@@ -240,6 +235,11 @@ public class MotorCarActivity extends AppCompatActivity {
                             public void onClose(int code, String reason, boolean remote) {
                                 Log.i("WebSocket", "disconnected!");
                                 ws_client.close();
+
+                                // 断开控制端链接，停止视频播放
+                                if (camera_video.isPlaying()) {
+                                    camera_video.stopPlayback();
+                                }
                             }
 
                             @Override
@@ -251,6 +251,11 @@ public class MotorCarActivity extends AppCompatActivity {
                                         btn_start_stop.setChecked(false);
                                     }
                                 });
+
+                                // 控制端链接异常，停止视频播放
+                                if (camera_video.isPlaying()) {
+                                    camera_video.stopPlayback();
+                                }
                             }
                         };
 
@@ -260,11 +265,14 @@ public class MotorCarActivity extends AppCompatActivity {
                     }
                 }
                 else {
-                    camera_video.stopPlayback();
-
                     if (ws_client.getReadyState() == WebSocket.READYSTATE.OPEN ) {
                         sendCommand("stop_all");
                         ws_client.close();
+                    }
+
+                    // 主动断开连接，停止播放视频
+                    if (camera_video.isPlaying()) {
+                        camera_video.stopPlayback();
                     }
                 }
             }
