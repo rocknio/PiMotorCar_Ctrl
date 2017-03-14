@@ -1,8 +1,8 @@
 <component name="libraryTable">
   <library name="vitamio-4.2.2">
     <CLASSES>
-      <root url="file://$PROJECT_DIR$/app/build/intermediates/exploded-aar/me.neavo/vitamio/4.2.2/res" />
-      <root url="jar://$PROJECT_DIR$/app/build/intermediates/exploded-aar/me.neavo/vitamio/4.2.2/jars/classes.jar!/" />
+      <root url="jar://$USER_HOME$/.android/build-cache/dafc465d9fafbe5aa8c132095fd85254d9087535/output/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.android/build-cache/dafc465d9fafbe5aa8c132095fd85254d9087535/output/res" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>
